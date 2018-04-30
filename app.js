@@ -7,15 +7,18 @@ const passport = require('passport');
 // require('./config/passport')(passport);
 const logger = require('./utils/logger');
 const morgan = require('morgan');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/users');
+const taskRoutes = require('./routes/tasks');
 const app = express();
 
 mongoose.connect(process.env.dbpath);
 
-logger.debug("Overriding 'Express' logger")
-app.use(morgan('dev',{ stream: logger.stream }))
+logger.debug("Overriding 'Express' logger");
+app.use(morgan('dev',{ stream: logger.stream }));
 app.use(bodyParser.json());
-app.use('/user', userRoutes)
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/users', userRoutes);
+app.use('/tasks', taskRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('Server started on port ' + PORT);

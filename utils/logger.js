@@ -1,3 +1,4 @@
+const path = require('path');
 const winston = require('winston');
 winston.emitErrs = true;
 
@@ -5,7 +6,7 @@ const logger = new winston.Logger({
   transports:[
     new winston.transports.File({
       level: 'info',
-      filename: '../logs/all-logs.log',
+      filename: path.join(__dirname,'../logs/all-logs.log'),
       handleExceptions: true,
       maxsize: 5242880,
       maxFiles: 5,

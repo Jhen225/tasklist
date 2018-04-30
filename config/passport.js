@@ -4,9 +4,9 @@ let opts = {};
 
 module.export = function (passport) {
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = 'secret';
-  opts.issuer = 'accounts.examplesoft.com';
-  opts.audience = 'yoursite.net';
+  opts.secretOrKey = process.env.jwtsecret;
+  opts.issuer = process.env.jwtissuer;
+  opts.audience = process.env.jwtaudience;
   passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
     User.findOne({ id: jwt_payload.sub }, function (err, user) {
       if (err) {
