@@ -47,5 +47,49 @@ module.exports = {
         }
       })
       .catch(err => res.status(400).json({ success: false }));
+  },
+
+  getUser: (req, res) => {
+    User.getUser(req.params.id)
+      .then(user => {
+        res.json({ success: true, user: user })
+      })
+      .catch(err => res.status(400).json({ success: false }));
+  },
+
+  getUserTasks: (req, res) => {
+    User.getUserTasks(req.params.id)
+      .then(user => res.json({ success: true, tasks: user.tasks }))
+      .catch(err => res.status(400).json({ success: false, err: err.message }));
+  },
+
+  getUserTask: (req, res) => {
+    User.getUserTask(req.params.id)
+      .then(user => res.json({ success: true, tasks: user.tasks.id(req.params.taskid) }))
+      .catch(err => res.status(400).json({ success: false, err: err.message }));
+  },
+
+  addUserTask: (req, res) => {
+    User.addUserTask(req.params.id, req.body, logger)
+      .then(added => res.json({ success: true, msg: 'task had been added' }))
+      .catch(err => res.status(400).json({ success: false, err: err.message }));
+  },
+
+  removeUserTask: (req, res) => {
+    User.removeUserTask(req.params.id)
+      .then(added => res.json({ success: true }))
+      .catch(err => res.status(400).json({ success: false, err: err.message }));
+  },
+
+  /**
+   * This is sooooooo broken and idk why but I also can come back to this
+   */
+  editUserTask: (req, res) => {
+
+    User.editUserTask(req.params.id, req.params.taskId, req.body, logger)
+      .then(user => {
+        res.json({ success: true })
+      })
+      .catch(err => res.status(400).json({ success: false, err: err }));
   }
 }

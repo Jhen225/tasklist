@@ -1,3 +1,4 @@
+//brings in all of my envirment variables from a .env file
 require('dotenv').config({})
 const PORT = process.env.PORT || 3000;
 const express = require('express');
@@ -13,10 +14,11 @@ const app = express();
 
 mongoose.connect(process.env.dbpath);
 
-logger.debug("Overriding 'Express' logger");
 app.use(morgan('dev',{ stream: logger.stream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
 app.use('/users', userRoutes);
 app.use('/tasks', taskRoutes);
 
