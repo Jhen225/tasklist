@@ -1,0 +1,47 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#taskList{
+  width: 60%;
+  margin: 0 auto;
+  min-height: calc(100vh - 70px);
+  background: rgb(225, 238, 240);
+  box-shadow: 2px 3px 6px 5px #AABABF;
+  margin-top: 60px;
+}
+
+.items:last-child{
+  border-bottom: 1px solid rgb(200, 216, 219);
+}
+
+.item{
+  border: 1px solid rgb(200, 216, 219);
+  border-bottom: none;
+  /* padding: 10px; */
+  display: flex;
+  font-size: 1.2em;
+
+}
+
+.item:hover{
+  background: rgb(210, 223, 224);
+  cursor: pointer;
+}
+
+.itemPriority{
+  width: 10%;
+  padding: 20px 0;
+  border-right: 1px solid rgb(200, 216, 219);
+  text-align: center;
+  font-weight: 600;
+}
+
+.itemDescription{
+  width: 90%;
+  padding: 20px 0;
+  text-align: center;  
+}
+

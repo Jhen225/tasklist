@@ -70,14 +70,14 @@ module.exports = {
   },
 
   addUserTask: (req, res) => {
-    User.addUserTask(req.params.id, req.body, logger)
+    User.addUserTask(req.params.id, req.body)
       .then(added => res.json({ success: true, msg: 'task had been added' }))
       .catch(err => res.status(400).json({ success: false, err: err.message }));
   },
 
   removeUserTask: (req, res) => {
-    User.removeUserTask(req.params.id)
-      .then(added => res.json({ success: true }))
+    User.removeUserTask(req.params.id, req.params.taskid)
+      .then(removed => res.json({ success: true }))
       .catch(err => res.status(400).json({ success: false, err: err.message }));
   },
 
@@ -86,9 +86,10 @@ module.exports = {
    */
   editUserTask: (req, res) => {
 
-    User.editUserTask(req.params.id, req.params.taskId, req.body, logger)
+    User.editUserTask(req.params.id, req.params.taskid, req.body)
       .then(user => {
-        res.json({ success: true })
+        logger.debug(user.tasks.id(req.params.taskid))
+        res.json({ success: true, meh: user.tasks.id(req.params.taskid)})
       })
       .catch(err => res.status(400).json({ success: false, err: err }));
   }

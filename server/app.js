@@ -1,8 +1,9 @@
 //brings in all of my envirment variables from a .env file
 require('dotenv').config({})
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 // require('./config/passport')(passport);
@@ -14,6 +15,7 @@ const app = express();
 
 mongoose.connect(process.env.dbpath);
 
+app.use(cors());
 app.use(morgan('dev',{ stream: logger.stream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

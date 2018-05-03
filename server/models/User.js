@@ -50,18 +50,24 @@ module.exports.getUserTask = userId => {
   return User.findById({ _id: userId }).select('tasks');
 }
 
-module.exports.editUserTask = (userId, taskId, update, logger) => {
-  return User.findById({ _id: userId }).select('tasks')
-  // .then(user => logger.debug(user))
-  // .then(task => task.update(update))
-  // .then(updated => logger.debug(updated))
-  // .catch(err => logger.debug(err));
+module.exports.editUserTask = (userId, taskId, update) => {
+  return new Promise((resolve, reject) => {
+    User.findById({ _id: userId }).select('tasks')
+    .then(user => {
+      // logger.debug(user.tasks.id(taskId));
+      resolve(user);
+    })    
+    // .then(user => resolve(user))
+    // .then(task => task.update(update))
+    // .then(updated => logger.debug(updated))
+    // .catch(err => logger.debug(err));
+  })
 }
 
-module.exports.addUserTask = (userId, task, logger) => {
-  return User.findByIdAndUpdate({ _id: userId }, { $push: { 'tasks': task } })
+module.exports.addUserTask = (userId, task) => {
+  return User.findByIdAndUpdate({ _id: userId }, { $push: { tasks: task } })
 }
 
-module.exports.removeUserTask = (userId, task) => {
-  return User.findByIdAndUpdate({ _id: userId }, { $push: { 'tasks': taskId } })
+module.exports.removeUserTask = (userId, taskid) => {
+  return User.findByIdAndUpdate({ _id: userId }, { $pull: { tasks: {_id: taskid} } })
 }
